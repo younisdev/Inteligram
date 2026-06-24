@@ -1,0 +1,627 @@
+body {
+  overflow-x: hidden;
+  background-color: #1f2937;
+  color: #111827;
+  display: block;
+  font-family: 'Inter', sans-serif;
+  user-select: none;
+  -webkit-user-select: none;
+}
+body.noscroll {
+  overflow-y: hidden;
+  touch-action: none;
+}
+#main-nav {
+  display: flex;
+  position: fixed;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  align-items: center;
+  width: 40%;
+  max-width: 600px;
+  height: 50px;
+  margin-left: 30%;
+  margin-top: 1.8%;
+  border: 0.9px black solid;
+  border-radius: 25px;
+  background-color: black;
+  top: 0;
+  z-index: 1000;
+}
+#guest-nav {
+  display: flex;
+  position: fixed;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 25%;
+  max-width: 300px;
+  height: 50px;
+  margin-left: 39.2%;
+  margin-top: 1.8%;
+  border: 0.9px black solid;
+  border-radius: 25px;
+  background-color: black;
+  top: 0;
+  z-index: 1000;
+}
+#main-nav:hover {
+  transform: scale(1.02);
+  transition: transform 0.3s ease-in-out;
+}
+.nav-link {
+  display: inline-block;
+  color: white;
+  text-decoration: none;
+}
+.nav-link:hover {
+  color: oklch(96.357% 0.03268 107.057);
+  transform: scale(1.2) !important;
+  transition:
+    transform 0.4s ease-in,
+    color 0.2s ease-in;
+}
+#nav-underline {
+  display: block;
+  width: 70%;
+  background-color: whitesmoke;
+  height: 2px;
+  border-radius: 40px;
+  margin-top: 2px;
+  margin-left: 15%;
+}
+/*
+  Authentication designs for both login and register
+*/
+.auth-div {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  background-color: #06b6d4;
+  margin: 0 auto;
+  margin-top: 11%;
+  border-radius: 50%;
+  border: black 3px solid;
+  width: 30rem;
+  height: 30rem;
+  background: linear-gradient(135deg, #06b6d4, #3b82f6);
+  gap: 1rem;
+}
+.auth-input {
+  width: 200px;
+  height: 25px;
+  margin-left: 10px;
+}
+#auth-btn {
+  display: block;
+  border: #111827 solid 1px;
+  border-radius: 50px;
+  width: 120px;
+  height: 28px;
+  background: linear-gradient(135deg, #3b82f6, #06b6d4);
+  color: #1f2937;
+  margin-top: 1.5rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+#auth-btn:hover {
+  background: linear-gradient(135deg, #3b82f6, #06b6d4);
+  box-shadow: 0 0 15px rgba(99, 102, 241, 0.6);
+  transform: scale(1.08);
+  transition: all 0.3s ease-in-out;
+  border: 2px rgb(11, 123, 188) solid;
+}
+#auth-btn:active {
+  transform: scale(0.9);
+  box-shadow: 0 0 5px rgba(99, 102, 241, 0.6);
+  transition: all 0.3s ease-in-out;
+}
+/* 
+  Multistep Registeration form css
+*/
+.input-container label {
+  display: block;
+  width: 220px !important;
+  font-size: 0.87rem;
+  margin-left: 10px;
+}
+#bd-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+#bd-container label {
+  width: 7rem !important;
+  font-size: x-small;
+  margin-left: 1.2rem;
+}
+#month-input {
+  width: 90px;
+  margin-left: 1.2rem;
+}
+#day-input {
+  width: 90px;
+  margin-left: 1.2rem;
+}
+#year-input {
+  width: 90px;
+  margin-left: 1.2rem;
+}
+/*
+  Login css
+*/
+.login-feild {
+  display: flex;
+  flex-direction: column;
+}
+.login-feild label {
+  display: block;
+  width: 220px !important;
+  font-size: 0.87rem;
+  margin-left: 10px;
+}
+#login-input {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+}
+#login-input #auth-msg {
+  color: purple !important;
+}
+/* 
+  Select engine css
+*/
+#dropdown-select {
+  position: absolute;
+  list-style: none;
+  text-align: left;
+  width: 90px;
+  max-height: 50px !important;
+  overflow-y: auto;
+  z-index: 1000;
+  padding: 0;
+  border-radius: 5px;
+  background-color: whitesmoke;
+  border: solid 1px #e2e8f0;
+}
+#dropdown-select::-webkit-scrollbar {
+  width: 5px;
+}
+#dropdown-select::-webkit-scrollbar-track {
+  background: transparent !important;
+}
+#dropdown-select::-webkit-scrollbar-thumb {
+  background-color: #06b6d4;
+  border-radius: 25px;
+}
+#dropdown-select li {
+  background-color: whitesmoke;
+  border-bottom: gainsboro 0.1px solid;
+  height: 10px !important;
+  font-size: xx-small;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+  margin-left: 0.2rem;
+}
+#dropdown-select li:hover {
+  transform: scale(1.003);
+  background-color: #e0f7fa;
+  cursor: pointer;
+}
+#dropdown-select li:active {
+  background-color: #b2ebf2;
+  color: white;
+}
+/*
+  authentication message css 
+*/
+#auth-msg {
+  max-width: 250px !important;
+  display: flex;
+  font-family: 'Courier New', Courier, monospace;
+  height: 15px;
+  align-items: center;
+  margin-left: 10px;
+}
+#auth-msg span {
+  height: 40% !important;
+  font-size: 0.5rem;
+  line-height: 1px;
+}
+#auth-msg span.error {
+  color: red;
+}
+.auth-emoji {
+  font-size: small;
+  width: 12px !important;
+}
+.auth-emoji.error {
+  color: red;
+}
+.auth-emoji.success {
+  color: green;
+}
+/*
+  password rating container css
+*/
+#progress-container {
+  width: 205px;
+  height: 3px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  border-radius: 2px;
+  background-color: whitesmoke;
+}
+#passwd-progress {
+  display: block;
+  background-color: red;
+  height: 100%;
+  border-radius: 2px;
+  width: 0%;
+}
+#termianation-div {
+  display: block;
+}
+#term-loader {
+  margin: 0 auto;
+  margin-top: 0.4rem;
+}
+/* 
+  Post container css
+*/
+#posts-container > div > div {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 50px;
+  margin-top: 7rem;
+}
+.post {
+  border: 1px solid rgb(30, 23, 23);
+  border-radius: 20px;
+  max-width: 50%;
+  margin: 0 auto;
+  max-height: 700px;
+  padding: 20px;
+  color: #e2e8f0;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+  transition: all ease-in-out 0.2s;
+  will-change: contents;
+  transition:
+    transform ease-in-out 0.2s,
+    background-color ease-in-out 0.3s;
+}
+.post:hover {
+  background-color: #2e616a;
+  transform: scale(1.009) !important;
+  box-shadow: 0 0 10px rgba(36, 37, 82, 0.1);
+}
+.post:first-child {
+  margin-top: 20px;
+}
+.user-pfp {
+  vertical-align: middle;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 3px #111827 solid;
+}
+.user-pfp:hover {
+  cursor: pointer;
+}
+.post-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 20px;
+  margin-left: 20px;
+  max-width: 100%;
+}
+.post-username {
+  vertical-align: text-top;
+  font-size: 2rem;
+  margin-left: 0.5rem;
+}
+.post-username:hover {
+  color: rgb(117, 114, 114);
+  cursor: pointer;
+}
+.post-content {
+  margin: 0 auto;
+  width: 90%;
+}
+.post-content img {
+  max-width: 90%;
+  max-height: 400px;
+  height: auto;
+  object-fit: cover;
+  border: 2px solid grey;
+  border-radius: 20px;
+}
+.interaction-container {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  width: 40%;
+  height: 30px;
+  gap: 5px;
+  margin-top: 1rem;
+  margin-left: 3rem;
+}
+.interaction-container span {
+  width: 30px;
+}
+.post-interaction {
+  display: flex;
+  align-items: center;
+  font-size: 1.2rem;
+  gap: 5px;
+}
+.post-interaction:hover {
+  transform: scale(1.1);
+  box-shadow: -11px -31px 56px -15px rgba(0, 0, 0, 0.7);
+  -webkit-box-shadow: -11px -31px 56px -15px rgba(0, 0, 0, 0.7);
+  -moz-box-shadow: -11px -31px 56px -15px rgba(0, 0, 0, 0.7);
+  transition: transform ease-in-out 0.1s;
+  cursor: pointer;
+}
+.post-interaction span {
+  width: 10px;
+  height: 10px;
+  font-size: large;
+}
+#comments-container {
+  display: block;
+  width: 100%;
+  margin-top: 140px;
+}
+#comments-section > div > div {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  margin-top: 1rem;
+}
+.comment {
+  border: 1px solid rgb(30, 23, 23);
+  border-radius: 40px;
+  width: 40% !important;
+  margin: 0 auto;
+  max-height: 700px;
+  padding: 20px;
+  color: #e2e8f0;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+  transition:
+    transform ease-in-out 0.2s,
+    background-color ease-in-out 0.34s;
+  will-change: contents;
+}
+.comment:first-child {
+  margin-top: 1.5rem;
+}
+.comment:hover {
+  transform: scale(1.15);
+  box-shadow: -9px -7px 10px -6px rgba(0, 0, 0, 0.83);
+  -webkit-box-shadow: -9px -7px 10px -6px rgba(0, 0, 0, 0.83);
+  -moz-box-shadow: -9px -7px 10px -6px rgba(0, 0, 0, 0.83);
+  background-color: #2e616a;
+}
+.comment-username {
+  vertical-align: text-top;
+  font-size: 1rem;
+  margin-left: 0.4rem;
+}
+.comment-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.comment-content {
+  margin-left: 1.9rem;
+  max-height: 300px;
+  width: 80%;
+}
+.close {
+  position: fixed;
+  top: 2rem;
+  left: 4rem;
+  font-size: 2.2rem;
+  color: #2e616a;
+  transition:
+    transform 0.5s ease-in-out,
+    color 0.6s ease-in-out;
+}
+.close:hover {
+  transform: scale(1.2);
+  color: #06b6d4;
+  cursor: pointer;
+  box-shadow: -6px -8px 19px -1px rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: -6px -8px 19px -1px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: -6px -8px 19px -1px rgba(0, 0, 0, 0.75);
+  border-radius: 2rem;
+}
+.inteligram-modal-comment {
+  transform: scale(1.5);
+}
+.inteligram-modal-comment:hover {
+  transform: scale(1.56) !important;
+}
+.inteligram-modal-comment #modal-header {
+  color: #e2e8f0;
+}
+.modal-add-holder {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color:#94ace477;
+  z-index: 200000;
+}
+@media only screen and (max-width: 600px) {
+  #main-nav {
+    width: 80%;
+    max-width: 400px;
+    margin-left: 8%;
+  }
+  #guest-nav {
+    width: 35%;
+    max-width: 355px;
+    margin-left: 30% !important;
+  }
+  .nav-link {
+    font-size: smaller;
+  }
+
+  /*
+    Authentication designs for both login and register for mobile screens.
+  */
+  .auth-div {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    background-color: #06b6d4;
+    margin: 80% auto;
+    border-radius: 50%;
+    border: black 3px solid;
+    width: 18rem;
+    height: 18rem;
+    background: linear-gradient(135deg, #06b6d4, #3b82f6);
+    gap: 1rem;
+  }
+  .auth-input {
+    width: 200px;
+    height: 25px;
+    margin-left: 10px;
+  }
+  #auth-btn {
+    display: block;
+    border: #111827 solid 1px;
+    border-radius: 50px;
+    width: 120px;
+    height: 28px;
+    background: linear-gradient(135deg, #3b82f6, #06b6d4);
+    color: #1f2937;
+    margin-top: 1.5rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  #bd-container label {
+    width: 7rem !important;
+    font-size: x-small;
+    margin-left: 1rem;
+  }
+  .bd-div {
+    width: 80px;
+  }
+  .bd-div ul {
+    width: 50px !important;
+  }
+  #month-input {
+    width: 50px;
+  }
+  #day-input {
+    width: 50px;
+    margin-left: 1rem;
+  }
+  #year-input {
+    width: 50px;
+    margin-left: 1rem;
+  }
+  #termianation-div {
+    display: block;
+    position: static;
+    margin: auto;
+    font-size: 0.3rem;
+    overflow-wrap: break-word;
+  }
+  /* 
+  Post container css for mobile screens
+  */
+  #posts-container > div > div {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 50px;
+    margin-top: 9rem;
+  }
+  .post {
+    border: 1px solid rgb(30, 23, 23);
+    border-radius: 20px;
+    max-width: 80%;
+    margin: 0 auto;
+    max-height: 900px;
+    padding: 20px;
+    color: #e2e8f0;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+  }
+  .post:hover {
+    background-color: #2e616a;
+    transform: scale(1.02);
+    box-shadow: 0 0 10px rgba(36, 37, 82, 0.1);
+  }
+  .user-pfp {
+    vertical-align: middle;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 3px #111827 solid;
+  }
+  .user-pfp:hover {
+    cursor: pointer;
+  }
+  .post-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 20px;
+    margin-left: 20px;
+    max-width: 100%;
+  }
+  .post-username {
+    vertical-align: text-top;
+    font-size: 0.8rem;
+    margin-left: 0.5rem;
+  }
+  .post-username:hover {
+    color: rgb(117, 114, 114);
+    cursor: pointer;
+  }
+  .post-content {
+    margin: 0 auto;
+    width: 90%;
+  }
+  .post-content img {
+    max-width: 90%;
+    max-height: 400px;
+    height: auto;
+    object-fit: cover;
+    border: 2px solid grey;
+    border-radius: 20px;
+  }
+  .interaction-container {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    width: 40%;
+    height: 30px;
+    gap: 5px;
+    margin-top: 1rem;
+    margin-left: 3rem;
+  }
+  .interaction-container span {
+    width: 30px;
+  }
+  .post-interaction {
+    display: flex;
+    align-items: center;
+    font-size: 1.2rem;
+    gap: 5px;
+  }
+  .post-interaction span {
+    width: 10px;
+    height: 10px;
+    font-size: large;
+  }
+  .post-interaction :hover {
+    cursor: pointer;
+  }
+}
