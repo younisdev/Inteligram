@@ -1,6 +1,6 @@
 import {
   Modal,
-  DynamicSelect,
+  DyvixSelect,
   DYVIX_GLOBAL_THEME,
   DYVIX_MODAL_VALIDATION_PRESET,
   DYVIX_MODAL_TYPE,

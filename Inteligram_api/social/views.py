@@ -29,12 +29,9 @@ from rest_framework.parsers import MultiPartParser, FormParser
 from .permissions import IsOwner
 from rest_framework.views import APIView
 from .helper import SOCIALMEDIAALGO
-#{"action":"subscribe_instance","pk":"ef3617d0-a1f2-4a36-bc80-bae20c2819f2"}
+
 # Create your views here.
-# refactor permission btw
-# remove bs comments on production
-# xxx 12345xx ==> admin account ik not clean to save here but nobody cares
-# gt7 userzxx!X122#  gt6@example.com Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzUzMzAzMzYzLCJpYXQiOjE3NTMzMDMwNjMsImp0aSI6IjExMGEyMzdmZGM5NTQxYTRiZjIyY2MyYWYyYTczNjM3IiwidXNlcl9pZCI6MTJ9.YwfcT8xi44QBA7rJlcK9m1ywstVfzh34BfxDTCrUuUE
+
 class UserViewSet(viewsets.GenericViewSet, DestroyModelMixin, RetrieveModelMixin):
     queryset = User.objects.all()
     serializer_class = UserSerializer
@@ -295,6 +292,9 @@ class CommentViewSet(viewsets.GenericViewSet, DestroyModelMixin, CreateModelMixi
     serializer_class = AddCommentSerializer
     queryset = Comment.objects.all()
 
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+    
 class TokenCheck(APIView):
     permission_classes = [permissions.IsAuthenticated]
 

@@ -130,7 +130,7 @@ class AddCommentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Comment
-        fields = ["text", "user", "post_id"]
+        fields = ["text", "post_id"]
 
 class AddReactionSerializer(serializers.ModelSerializer):
 
