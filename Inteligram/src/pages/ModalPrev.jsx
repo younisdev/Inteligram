@@ -11,14 +11,13 @@ import {
 } from 'dyvix-ui';
 
 function ModalPrev() {
-
   const testData5Rows = Array.from({ length: 9 }, (_, i) => ({
     type: 'text',
     name: `field_${i}`,
     placeholder: `Extended Field ${i + 1}`,
     amount: 1,
   }));
-return (
+  return (
     <Modal
       title="Add Comment"
       //Id={`intel-comment-modal-${postId}`}
@@ -33,14 +32,15 @@ return (
           name: 'commentText',
           placeholder: 'Share your thoughts authentically...',
           id: 'comment-input',
-          validation: '$R^[\\s\\S]{3,500}$|must be between 3 and 500 characters'
-        }
+          validation:
+            '$R^[\\s\\S]{3,500}$|must be between 3 and 500 characters',
+        },
       ]}
       onSubmit={(data) => {
-        console.log("hi", data)
+        console.log('hi', data);
       }}
       onChange={(data) => {
-        console.log("Typing dynamic payload...", data);
+        console.log('Typing dynamic payload...', data);
       }}
       //onClose={onClose}
     />

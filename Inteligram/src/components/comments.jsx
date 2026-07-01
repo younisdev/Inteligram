@@ -10,7 +10,7 @@ import {
   DYVIX_MODAL_TYPE,
   DYVIX_GLOBAL_ANIMATION,
   DYVIX_MODAL_ELEMENT,
-  dyvixToast
+  dyvixToast,
 } from 'dyvix-ui';
 
 const Comments = ({ post, togglecomment, updateReaction, getUserReaction }) => {
@@ -53,7 +53,7 @@ const Comments = ({ post, togglecomment, updateReaction, getUserReaction }) => {
         if (Response.ok) return Response.json();
       })
       .then((data) => {
-        setComments(data['results']);
+        setComments((prev) => (cpage === 1 ? data['results']: [...prev, data['results']]));
         setHasmore(data['next'] !== null);
         setPage(cpage + 1);
 
@@ -126,50 +126,53 @@ const Comments = ({ post, togglecomment, updateReaction, getUserReaction }) => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${localStorage.getItem('access')}`
+        Authorization: `Bearer ${localStorage.getItem('access')}`,
       },
-      body: JSON.stringify({ 
-        "text": comment,
-        "post_id": post['post_id']})
-    }).then((response) => {
-      if(!response.ok)
-      {
-        throw new Error(`Api Error! Status: ${response.status}`)
-      }
-      dyvixToast.success("Comment successfully added");
-      setAddComment(false);
-      fetchComments(page);
-    }).catch((error) => console.error(error));
-
+      body: JSON.stringify({
+        text: comment,
+        post_id: post['post_id'],
+      }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`Api Error! Status: ${response.status}`);
+        }
+        dyvixToast.success('Comment successfully added');
+        setAddComment(false);
+        fetchComments(1);
+      })
+      .catch((error) => console.error(error));
   }
 
   return (
     <div id="comments-container" ref={commentCont}>
-      {showAddComment && ( 
-      createPortal(
-        <div className='modal-add-holder'>
-      <Modal
-      title="Add Comment"
-      //Id={`intel-comment-modal-${postId}`}
-      className="inteligram-modal-comment"
-      theme={DYVIX_GLOBAL_THEME.MIDNIGHT}
-      animation={DYVIX_GLOBAL_ANIMATION.DRIFT}
-      type={DYVIX_MODAL_TYPE.FORM}
-      elements={[
-        {
-          type: DYVIX_MODAL_ELEMENT.TEXT,
-          amount: 1,
-          name: 'commentText',
-          placeholder: 'Share your thoughts authentically...',
-          id: 'comment-input',
-          validation: '$R^[\\s\\S]{3,500}$|must be between 3 and 500 characters'
-        }
-      ]}
-      onSubmit={(data) => (
-        addComment(data['commentText'])
-      )}
-      onClose={() => SetShowAddComment()}
-    /></div>, document.querySelector('#root')))}
+      {showAddComment &&
+        createPortal(
+          <div className="modal-add-holder">
+            <Modal
+              title="Add Comment"
+              //Id={`intel-comment-modal-${postId}`}
+              className="inteligram-modal-comment"
+              theme={DYVIX_GLOBAL_THEME.MIDNIGHT}
+              animation={DYVIX_GLOBAL_ANIMATION.DRIFT}
+              type={DYVIX_MODAL_TYPE.FORM}
+              elements={[
+                {
+                  type: DYVIX_MODAL_ELEMENT.TEXT,
+                  amount: 1,
+                  name: 'commentText',
+                  placeholder: 'Share your thoughts authentically...',
+                  id: 'comment-input',
+                  validation:
+                    '$R^[\\s\\S]{3,500}$|must be between 3 and 500 characters',
+                },
+              ]}
+              onSubmit={(data) => addComment(data['commentText'])}
+              onClose={() => SetShowAddComment()}
+            />
+          </div>,
+          document.querySelector('#root')
+        )}
       <span
         className="material-symbols-outlined close"
         ref={backbtnRef}
@@ -214,7 +217,7 @@ const Comments = ({ post, togglecomment, updateReaction, getUserReaction }) => {
               thumb_up
             </span>
           </div>
-          <div className="post-interaction" onClick={(() => SetShowAddComment())}>
+          <div className="post-interaction" onClick={() => SetShowAddComment()}>
             <span>{postState['comment_count']}</span>
             <span className="material-symbols-outlined">comment</span>
           </div>

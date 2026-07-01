@@ -6,7 +6,12 @@ function Home() {
   return (
     <>
       <Tokenctr>
-        <DyvixToastContainer position='top-right' duration={5000} segments={10} animation={DYVIX_GLOBAL_ANIMATION.GLITCH}/>
+        <DyvixToastContainer
+          position="top-right"
+          duration={5000}
+          segments={10}
+          animation={DYVIX_GLOBAL_ANIMATION.GLITCH}
+        />
         <NavBar />
         <FeedPosts />
       </Tokenctr>

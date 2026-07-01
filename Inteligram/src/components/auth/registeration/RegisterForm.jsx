@@ -32,8 +32,7 @@ function Register() {
     type: null,
     visibility: false,
   });
-  //const [passwdScore, SetScore] = React.useState(0);
-  console.log(UserInfo);
+
   React.useEffect(() => {
     document.querySelector('body').classList.add('noscroll');
   }, []);
