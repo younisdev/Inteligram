@@ -88,44 +88,50 @@ function NavBar() {
     }
       */
   return (
-    <nav id={`${isSignedIn ? 'main-nav' : 'guest-nav'}`} ref={nav}>
+    <>
       {isSignedIn && (
         <>
-          <a href="/" className="nav-link">
-            <span>Home</span>
-          </a>
-          <a href="#" className="nav-link">
-            <span>Explore</span>
-          </a>
-          <a href="#" className="nav-link">
-            <span>Followings</span>
-          </a>
-          <a href="#" className="nav-link">
-            <span>Settings</span>
-          </a>
+          <div id="nav-logo">
+            <img src='http://127.0.0.1:8000/attachments/logo.png'/>
+          </div>
         </>
       )}
-      {!isSignedIn && (
-        <>
-          <a
-            href="/account/register"
-            className="nav-link"
-            ref={RegisterLinkRef}
-          >
-            <span>Register</span>
-            {isRegister && (
-              <span id="nav-underline" ref={registerUnderlineRef}></span>
-            )}
-          </a>
-          <a href="/account/login" className="nav-link" ref={LoginLinkRef}>
-            <span>Login</span>
-            {!isRegister && (
-              <span id="nav-underline" ref={loginUnderlineRef}></span>
-            )}
-          </a>
-        </>
-      )}
-    </nav>
+      <nav id={`${isSignedIn ? 'main-nav' : 'guest-nav'}`} ref={nav}>
+        {isSignedIn && (
+          <>
+            <a href="/" className="nav-link">
+              <span>Home</span>
+            </a>
+            <a href="#" className="nav-link">
+              <span>Explore</span>
+            </a>
+            <a href="#" className="nav-link">
+              <span>Followings</span>
+            </a>
+          </>
+        )}
+        {!isSignedIn && (
+          <>
+            <a
+              href="/account/register"
+              className="nav-link"
+              ref={RegisterLinkRef}
+            >
+              <span>Register</span>
+              {isRegister && (
+                <span id="nav-underline" ref={registerUnderlineRef}></span>
+              )}
+            </a>
+            <a href="/account/login" className="nav-link" ref={LoginLinkRef}>
+              <span>Login</span>
+              {!isRegister && (
+                <span id="nav-underline" ref={loginUnderlineRef}></span>
+              )}
+            </a>
+          </>
+        )}
+      </nav>
+    </>
   );
 }
 
