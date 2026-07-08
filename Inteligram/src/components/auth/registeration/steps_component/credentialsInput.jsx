@@ -1,5 +1,6 @@
 import React from 'react';
 import { RatePasswd, passwdColors, AnimateInputLabel } from '../../../utils';
+import gsap from 'gsap';
 
 const CredentialsInput = ({ REGISTER_STEPS, step, onValueChange }) => {
   const credentialsLabelRef = React.useRef();

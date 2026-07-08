@@ -2,6 +2,7 @@ import React from 'react';
 import { createPortal } from 'react-dom';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { CircleLoader } from 'react-spinners';
+import gsap from 'gsap';
 import {
   Modal,
   DyvixSelect,

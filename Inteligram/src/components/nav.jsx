@@ -1,13 +1,19 @@
-import { useRef } from 'react';
+import React from 'react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
+import {
+  DyvixLabel,
+  DYVIX_GLOBAL_ANIMATION,
+  DYVIX_GLOBAL_THEME,
+  DyvixButton
+} from 'dyvix-ui';
 
 function NavBar() {
-  const nav = useRef();
-  const registerUnderlineRef = useRef();
-  const loginUnderlineRef = useRef();
-  const RegisterLinkRef = useRef();
-  const LoginLinkRef = useRef();
+  const nav = React.useRef();
+  const registerUnderlineRef = React.useRef();
+  const loginUnderlineRef = React.useRef();
+  const RegisterLinkRef = React.useRef();
+  const LoginLinkRef = React.useRef();
 
   const navSelector = gsap.utils.selector(nav);
   const isSignedIn =
@@ -16,22 +22,23 @@ function NavBar() {
   const isRegister = document.location.pathname === '/account/register';
   const linkRef = isRegister ? RegisterLinkRef.current : LoginLinkRef.current;
   const underlineRef = isRegister ? registerUnderlineRef : loginUnderlineRef;
+  const [showDropdown, setShowDropdown] = React.useState(false);
+  const DROPDOWNITEMS = [
+    {label: "Create a new post", func: () => {
+     console.log('hiii')
+    }},
+    {label: "example", func: () => {
+     console.log('example 1!')
+    }}
+  ];
 
-  document.addEventListener('resize', (e) => {
-    // ResizeNav();
-  });
   useGSAP(() => {
-    let navWidth = nav.current.offsetWidth;
-
-    gsap.set(nav.current, {
-      width: 0,
-      opacity: 0,
-    });
-
+    const navWidth = nav.current.offsetWidth;
     gsap.set(navSelector('.nav-link'), {
       opacity: 0,
       y: 10,
     });
+
     if (!isSignedIn) {
       gsap.set(underlineRef.current, {
         opacity: 0,
@@ -41,12 +48,16 @@ function NavBar() {
 
     let tl = gsap.timeline();
 
-    tl.to(nav.current, {
+    tl.fromTo(nav.current, 
+      {width: 0, opacity: 0},
+      {
       width: navWidth,
       opacity: 1,
       duration: 1.7,
       ease: 'power2.out',
-    });
+      clearProps: 'width'
+    },
+  );
     tl.to(
       navSelector('.nav-link'),
       {
@@ -63,7 +74,7 @@ function NavBar() {
         underlineRef.current,
         {
           opacity: 1,
-          width: 70 + '%',
+          width: '70%',
           ease: 'power2.in',
           duration: 1.1,
         },
@@ -71,28 +82,25 @@ function NavBar() {
       );
     }
   }, []);
-  /*
-    function ResizeNav()
-    {
-      if(windows.innerWidth <= 600)
-      {
-        return;
-      }
-      tl.to(nav.current, {
-        width: windows.innerWidth - 50,
-        duration: 1.7,
-        ease: 'power2.out',
-      });
 
-
-    }
-      */
   return (
-    <>
+    <div id='inteligram-nav'>
       {isSignedIn && (
         <>
           <div id="nav-logo">
             <img src='http://127.0.0.1:8000/attachments/logo.png'/>
+          </div>
+          <div id="pfp-setting-holder">
+            <img src='http://127.0.0.1:8000/attachments/user.png' onClick={() => setShowDropdown((prev) => !prev)}/>
+            {showDropdown && (
+              <div id="pfp-dropdown">
+                {DROPDOWNITEMS.map((item, i) => (
+                  <DyvixButton className="pfp-dropdown-item" key={i} onClick={() => item.func()}>
+                    {item.label}
+                  </DyvixButton>
+                ))}
+              </div>
+            )}
           </div>
         </>
       )}
@@ -131,7 +139,7 @@ function NavBar() {
           </>
         )}
       </nav>
-    </>
+    </div>
   );
 }
 

@@ -11,54 +11,48 @@ body.noscroll {
   overflow-y: hidden;
   touch-action: none;
 }
-#main-nav {
+#inteligram-nav {
+  display: flex;
+  flex-direction: column;
+  height: 70px;
+  justify-content: center;
+}
+#main-nav, #guest-nav {
   display: flex;
   position: fixed;
   justify-content: space-evenly;
-  flex-wrap: wrap;
   align-items: center;
+  height: 50px;
+  top: 2%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 0.9px black solid;
+  border-radius: 25px;
+  background-color: black;
+  z-index: 1000;
+  transition: transform 0.3s ease-in-out, background-color 0.3s;
+}
+#main-nav {
   width: 40%;
   max-width: 600px;
-  height: 50px;
-  margin-left: 30%;
-  margin-top: 1.8%;
-  border: 0.9px black solid;
-  border-radius: 25px;
-  background-color: black;
-  top: 0;
-  z-index: 1000;
 }
 #guest-nav {
-  display: flex;
-  position: fixed;
-  justify-content: space-evenly;
-  align-items: center;
   width: 25%;
   max-width: 300px;
-  height: 50px;
-  margin-left: 39.2%;
-  margin-top: 1.8%;
-  border: 0.9px black solid;
-  border-radius: 25px;
-  background-color: black;
-  top: 0;
-  z-index: 1000;
 }
-#main-nav:hover {
-  transform: scale(1.02);
-  transition: transform 0.3s ease-in-out;
+#main-nav:hover, #guest-nav:hover  {
+  transform: translateX(-50%) scale(1.02);
 }
 .nav-link {
   display: inline-block;
   color: white;
-  text-decoration: none;
+  text-decoration: none;  
+  transition: transform 0.4s ease-in-out, color 0.2s ease-in-out;
 }
 .nav-link:hover {
   color: oklch(96.357% 0.03268 107.057);
   transform: scale(1.2) !important;
-  transition:
-    transform 0.4s ease-in,
-    color 0.2s ease-in;
+
 }
 #nav-underline {
   display: block;
@@ -71,23 +65,61 @@ body.noscroll {
 }
 #nav-logo {
   position: fixed;
-  top: 1.6rem; 
-  left: 2rem;
+  left: 4rem;
+  top: 2%;
   z-index: 50;
 }
 #nav-logo img {
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   border: 3px #111827 solid;
   object-fit: contain;
-  transform: scale(1.5);
+  transform: scale(1.2);
   object-position: center 20%;
-  transition:  transform 0.5s ease-in-out, border-color 0.6s ease-in;
+  transition: transform 0.5s ease-in-out, border-color 0.6s ease-in;
 }
 #nav-logo img:hover {
-  transform: scale(1.55);
+  transform: scale(1.25);
   border-color: #3b82f6;
+}
+#pfp-setting-holder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: fixed;
+  top: 2%;
+  right: 1.3rem;
+  width:150px;
+  gap: 10px;
+  z-index: 50;
+}
+#pfp-setting-holder img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 3px #111827 solid;
+  object-fit: contain;
+  object-position: center 20%;
+  transition: transform 0.5s ease-in-out, border-color 0.6s ease-in;
+}
+#pfp-setting-holder img:hover {
+  border-color: #3b82f6;
+}
+#pfp-dropdown {
+  display: flex;
+  flex-direction: column; 
+  align-items: center;
+  top: 60px;
+  right: 0;
+  width: 150px;
+  background-color: #111827;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.5rem;
+  padding: 8px;
+}
+.pfp-dropdown-item {
+  width: 150px;
 }
 /*
   Authentication designs for both login and register
@@ -99,7 +131,7 @@ body.noscroll {
   align-items: center;
   background-color: #06b6d4;
   margin: 0 auto;
-  margin-top: 11%;
+  margin-top: 5%;
   border-radius: 50%;
   border: black 3px solid;
   width: 30rem;
@@ -480,19 +512,6 @@ body.noscroll {
   z-index: 200000;
 }
 @media only screen and (max-width: 600px) {
-  #main-nav {
-    width: 80%;
-    max-width: 400px;
-    margin-left: 8%;
-  }
-  #guest-nav {
-    width: 35%;
-    max-width: 355px;
-    margin-left: 30% !important;
-  }
-  .nav-link {
-    font-size: smaller;
-  }
 
   /*
     Authentication designs for both login and register for mobile screens.

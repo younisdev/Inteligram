@@ -1,4 +1,5 @@
 import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
 import React from 'react';
 
 export function Post({ post, togglecomment }) {
