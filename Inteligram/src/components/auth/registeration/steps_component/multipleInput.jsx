@@ -11,6 +11,7 @@ import {
   ReformatDate,
 } from '../../../utils';
 import gsap from 'gsap';
+import { DyvixLabel } from 'dyvix-ui';
 
 const DOBMultiInput = ({ step, onValueChange }) => {
   const [monthSelect, SetSelect] = React.useState({
@@ -140,9 +141,9 @@ const DOBMultiInput = ({ step, onValueChange }) => {
           }
           onChange={() => onChangeCallback()}
         ></input>
-        <label htmlFor="year-input" ref={DOBRef[2]['label']}>
+        <DyvixLabel className='register-label' theme={"Ocean"} htmlFor="year-input" ref={DOBRef[2]['label']}>
           Year
-        </label>
+        </DyvixLabel>
       </div>
     </div>
   );

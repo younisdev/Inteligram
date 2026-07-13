@@ -4,6 +4,7 @@ import { useGSAP } from '@gsap/react';
 import { loginSettings } from './loginSettings';
 import { AnimateInputLabel, validateInputStyle } from '../../utils';
 import { AuthMessage } from '../AuthMsg';
+import { DyvixButton, DyvixLabel } from 'dyvix-ui';
 function Login() {
   const [userDetails, SetUserDetails] = React.useState({
     username: '',
@@ -124,9 +125,9 @@ function Login() {
             }
             onChange={(e) => handelDetailsChange(e)}
           ></input>
-          <label htmlFor="login-username" ref={usernameLabel}>
+          <DyvixLabel theme={"Ocean"} htmlFor="login-username" ref={usernameLabel}>
             {loginSettings[0]['placeholder']}
-          </label>
+          </DyvixLabel>
         </div>
         <div className="login-feild">
           <input
@@ -150,16 +151,16 @@ function Login() {
             }
             onChange={(e) => handelDetailsChange(e)}
           ></input>
-          <label htmlFor="login-password" ref={passwordLabel}>
+          <DyvixLabel theme="Ocean" htmlFor="login-password" ref={passwordLabel}>
             {loginSettings[1]['placeholder']}
-          </label>
+          </DyvixLabel>
         </div>
         {authMsg.visibility && <AuthMessage value={authMsg} />}
       </div>
 
-      <button id="auth-btn" onClick={validateLogin}>
+      <DyvixButton className="auth-btn" onClick={validateLogin}>
         Sign in
-      </button>
+      </DyvixButton>
     </div>
   );
 }

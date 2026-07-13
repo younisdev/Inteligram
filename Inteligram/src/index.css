@@ -11,6 +11,10 @@ body.noscroll {
   overflow-y: hidden;
   touch-action: none;
 }
+#root {
+  min-height: 97vh;
+
+}
 #inteligram-nav {
   display: flex;
   flex-direction: column;
@@ -23,6 +27,7 @@ body.noscroll {
   justify-content: space-evenly;
   align-items: center;
   height: 50px;
+  min-width: 150px;
   top: 2%;
   left: 50%;
   transform: translateX(-50%);
@@ -129,44 +134,46 @@ body.noscroll {
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  background-color: #06b6d4;
-  margin: 0 auto;
-  margin-top: 5%;
+  background: radial-gradient(circle,rgba(6, 182, 212, 1) 0%, rgba(70, 88, 252, 1) 100%);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  margin: 15vh auto 0 auto;
   border-radius: 50%;
-  border: black 3px solid;
   width: 30rem;
   height: 30rem;
-  background: linear-gradient(135deg, #06b6d4, #3b82f6);
   gap: 1rem;
+  max-width: 30rem;
+  max-height: 30rem;
 }
 .auth-input {
   width: 200px;
-  height: 25px;
-  margin-left: 10px;
+  height: 35px;
+  border-radius: 8px;
+  color: #fff;
+  padding: 0 1rem;
+  background: rgba(104, 195, 255, 0.2);
+  border: 1px solid rgba(161, 212, 254, 0.1);
+  font-size: 0.95rem;
+  margin: 0 auto 0 auto;
+  outline: none;
 }
-#auth-btn {
+.auth-btn {
   display: block;
-  border: #111827 solid 1px;
-  border-radius: 50px;
-  width: 120px;
-  height: 28px;
-  background: linear-gradient(135deg, #3b82f6, #06b6d4);
-  color: #1f2937;
-  margin-top: 1.5rem;
-  margin-left: auto;
-  margin-right: auto;
+  width: 150px;
+  background: linear-gradient(135deg, #3b82f6, #06b6d4) !important;
+  margin: 2rem auto 0 auto;
+  transition: all 0.3s ease-in-out;
 }
-#auth-btn:hover {
+.auth-btn:hover {
   background: linear-gradient(135deg, #3b82f6, #06b6d4);
   box-shadow: 0 0 15px rgba(99, 102, 241, 0.6);
-  transform: scale(1.08);
-  transition: all 0.3s ease-in-out;
+  transform: scale(1.02);
+
   border: 2px rgb(11, 123, 188) solid;
 }
-#auth-btn:active {
+.auth-btn:active {
   transform: scale(0.9);
   box-shadow: 0 0 5px rgba(99, 102, 241, 0.6);
-  transition: all 0.3s ease-in-out;
 }
 /* 
   Multistep Registeration form css
@@ -222,6 +229,18 @@ body.noscroll {
 #login-input #auth-msg {
   color: purple !important;
 }
+/*
+  Register css
+*/
+.register-feild {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.register-label {
+  margin-left: .6rem;
+}
+
 /* 
   Select engine css
 */
@@ -517,18 +536,8 @@ body.noscroll {
     Authentication designs for both login and register for mobile screens.
   */
   .auth-div {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    background-color: #06b6d4;
-    margin: 80% auto;
-    border-radius: 50%;
-    border: black 3px solid;
-    width: 18rem;
-    height: 18rem;
-    background: linear-gradient(135deg, #06b6d4, #3b82f6);
-    gap: 1rem;
+    width: 80vw !important;
+    height: 80vw !important;
   }
   .auth-input {
     width: 200px;

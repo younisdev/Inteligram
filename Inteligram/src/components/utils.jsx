@@ -195,7 +195,7 @@ export const AnimateInputLabel = (
   if (visible) {
     gsap.to(label.current, {
       opacity: 1,
-      y: -50,
+      y: -55,
       ease: 'power2.inOut',
     });
     input.current.placeholder = '';

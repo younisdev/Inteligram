@@ -11,6 +11,7 @@ import { REGISTER_STEPS } from './registerSteps';
 import { AuthMessage } from '../AuthMsg';
 import { useDOBRef, ClearStepInput, validateInputStyle } from '../../utils';
 import Terminate from './steps_component/termination';
+import { DyvixButton } from 'dyvix-ui';
 function Register() {
   const [step, SetStep] = React.useState(0);
   const [UserInfo, SetUser] = React.useState({
@@ -179,7 +180,7 @@ function Register() {
 
   return (
     <div className="auth-div" ref={registerDiv}>
-      <div className="input-container">
+      <div className='register-feild'>
         {componentVisibility.input && (
           <CredentialsInput
             REGISTER_STEPS={REGISTER_STEPS}
@@ -197,16 +198,17 @@ function Register() {
             onValueChange={OnStepValueChange}
           />
         )}
+        </div>
         {componentVisibility.termination && (
           <Terminate username={UserInfo.username} passwd={UserInfo.password} />
         )}
         {authMsg.visibility && <AuthMessage value={authMsg} />}
         {!componentVisibility.termination && (
-          <button id="auth-btn" onClick={HandelRegisterBtn}>
+          <DyvixButton className="auth-btn" onClick={HandelRegisterBtn}>
             Continue
-          </button>
+          </DyvixButton>
         )}
-      </div>
+    
     </div>
   );
 }

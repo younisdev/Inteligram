@@ -2,6 +2,7 @@ import React, { forwardRef, useEffect } from 'react';
 import SelectEngine from '../../../SelectEngine';
 import gsap from 'gsap';
 import { PopulateSelect, GENDERSLIST, AnimateInputLabel } from '../../../utils';
+import { DyvixLabel } from 'dyvix-ui';
 
 const GenderInput = ({ REGISTER_STEPS, step, onValueChange }) => {
   const [genderSelect, SetGender] = React.useState({
@@ -66,9 +67,9 @@ const GenderInput = ({ REGISTER_STEPS, step, onValueChange }) => {
           OnChangeCallback();
         }}
       ></input>
-      <label htmlFor="gender-input" ref={genderLabelRef}>
+      <DyvixLabel className='register-label' theme={"Ocean"} htmlFor="gender-input" ref={genderLabelRef}>
         {REGISTER_STEPS[step]['placeholder']}
-      </label>
+      </DyvixLabel>
     </>
   );
 };
