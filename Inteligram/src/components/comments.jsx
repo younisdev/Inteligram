@@ -3,27 +3,19 @@ import { createPortal } from 'react-dom';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { CircleLoader } from 'react-spinners';
 import gsap from 'gsap';
-import {
-  Modal,
-  DyvixSelect,
-  DYVIX_GLOBAL_THEME,
-  DYVIX_MODAL_VALIDATION_PRESET,
-  DYVIX_MODAL_TYPE,
-  DYVIX_GLOBAL_ANIMATION,
-  DYVIX_MODAL_ELEMENT,
-  dyvixToast,
-} from 'dyvix-ui';
+import { dyvixToast } from 'dyvix-ui';
+import CreateComment from './CreateComment';
 
 const Comments = ({ post, togglecomment, updateReaction, getUserReaction }) => {
   const [postState, setPosts] = React.useState(post);
   const [comments, setComments] = React.useState([]);
-  const [showAddComment, setAddComment] = React.useState(false);
+  const [showAddComment, setShowAddComment] = React.useState(false);
   const [hasmore, setHasmore] = React.useState(true);
   const [page, setPage] = React.useState(1);
   const postRef = React.useRef(post);
   const commentRef = React.useRef([]);
   const backbtnRef = React.useRef(null);
-  const commentCont = React.useRef(null);
+  const commentContRef = React.useRef(null);
   const sockets = React.useRef([]);
   const sideRef = React.useRef();
   React.useEffect(() => {
@@ -54,7 +46,9 @@ const Comments = ({ post, togglecomment, updateReaction, getUserReaction }) => {
         if (Response.ok) return Response.json();
       })
       .then((data) => {
-        setComments((prev) => (cpage === 1 ? data['results']: [...prev, data['results']]));
+        setComments((prev) =>
+          cpage === 1 ? data['results'] : [...prev, data['results']]
+        );
         setHasmore(data['next'] !== null);
         setPage(cpage + 1);
 
@@ -118,60 +112,19 @@ const Comments = ({ post, togglecomment, updateReaction, getUserReaction }) => {
     setTimeout(() => togglecomment(post), 1200);
   }
 
-  function SetShowAddComment() {
-    setAddComment((prev) => !prev);
-  }
-
-  function addComment(comment) {
-    fetch('http://127.0.0.1:8000/api/comment/', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${localStorage.getItem('access')}`,
-      },
-      body: JSON.stringify({
-        text: comment,
-        post_id: post['post_id'],
-      }),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`Api Error! Status: ${response.status}`);
-        }
-        dyvixToast.success('Comment successfully added');
-        setAddComment(false);
-        fetchComments(1);
-      })
-      .catch((error) => console.error(error));
+  function ToggleComment() {
+    setShowAddComment((prev) => !prev);
   }
 
   return (
-    <div id="comments-container" ref={commentCont}>
+    <div id="comments-container" ref={commentContRef}>
       {showAddComment &&
         createPortal(
-          <div className="modal-add-holder">
-            <Modal
-              title="Add Comment"
-              //Id={`intel-comment-modal-${postId}`}
-              className="inteligram-modal-comment"
-              theme={DYVIX_GLOBAL_THEME.MIDNIGHT}
-              animation={DYVIX_GLOBAL_ANIMATION.DRIFT}
-              type={DYVIX_MODAL_TYPE.FORM}
-              elements={[
-                {
-                  type: DYVIX_MODAL_ELEMENT.TEXT,
-                  amount: 1,
-                  name: 'commentText',
-                  placeholder: 'Share your thoughts authentically...',
-                  id: 'comment-input',
-                  validation:
-                    '$R^[\\s\\S]{3,500}$|must be between 3 and 500 characters',
-                },
-              ]}
-              onSubmit={(data) => addComment(data['commentText'])}
-              onClose={() => SetShowAddComment()}
-            />
-          </div>,
+          <CreateComment
+            post={post}
+            setShowAddComment={setShowAddComment}
+            fetchComments={fetchComments}
+          />,
           document.querySelector('#root')
         )}
       <span
@@ -218,7 +171,7 @@ const Comments = ({ post, togglecomment, updateReaction, getUserReaction }) => {
               thumb_up
             </span>
           </div>
-          <div className="post-interaction" onClick={() => SetShowAddComment()}>
+          <div className="post-interaction" onClick={() => ToggleComment()}>
             <span>{postState['comment_count']}</span>
             <span className="material-symbols-outlined">comment</span>
           </div>

@@ -71,7 +71,12 @@ const CredentialsInput = ({ REGISTER_STEPS, step, onValueChange }) => {
         }
         onChange={() => onChangeCallback()}
       ></input>
-      <DyvixLabel className='register-label' theme={"Ocean"} htmlFor="auth-input" ref={credentialsLabelRef}>
+      <DyvixLabel
+        className="register-label"
+        theme={'Ocean'}
+        htmlFor="auth-input"
+        ref={credentialsLabelRef}
+      >
         {REGISTER_STEPS[step]['placeholder']}
       </DyvixLabel>
       {REGISTER_STEPS[step]['type'] === 'password' && (

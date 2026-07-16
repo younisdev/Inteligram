@@ -47,8 +47,7 @@ function Tokenctr({ children }) {
           .then((data) => {
             setLogin(true);
             localStorage.setItem('access', data['access']);
-            if(data['refresh'])
-            {
+            if (data['refresh']) {
               localStorage.setItem('refresh', data['refresh']);
             }
           });

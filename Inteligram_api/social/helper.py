@@ -62,9 +62,9 @@ class SOCIALMEDIAALGO():
         user_interactions = PostInteraction.objects.filter(user=user).values('post').distinct()[:40].count()
 
         if user_interactions < personalize_offset:
-            return list(Post.objects.all().exclude(user=user.id))
+            return list(Post.objects.all())
 
-        posts = Post.objects.all().exclude(user=user.id).prefetch_related("tags")
+        posts = Post.objects.all().prefetch_related("tags")
 
         new_posts = posts.filter(date__gte=self.six_month_range())
         user_feed = self.get_user_feed(user)

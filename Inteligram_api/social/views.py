@@ -159,7 +159,7 @@ class PostViewSet(viewsets.GenericViewSet, DestroyModelMixin):
         if not serializer.is_valid():
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-        user = serializer.validated_data["user"]
+        user = request.user
         text = serializer.validated_data.get("text")
         image = serializer.validated_data.get("attachment")
 

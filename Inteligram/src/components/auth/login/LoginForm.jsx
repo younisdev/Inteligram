@@ -125,7 +125,11 @@ function Login() {
             }
             onChange={(e) => handelDetailsChange(e)}
           ></input>
-          <DyvixLabel theme={"Ocean"} htmlFor="login-username" ref={usernameLabel}>
+          <DyvixLabel
+            theme={'Ocean'}
+            htmlFor="login-username"
+            ref={usernameLabel}
+          >
             {loginSettings[0]['placeholder']}
           </DyvixLabel>
         </div>
@@ -151,7 +155,11 @@ function Login() {
             }
             onChange={(e) => handelDetailsChange(e)}
           ></input>
-          <DyvixLabel theme="Ocean" htmlFor="login-password" ref={passwordLabel}>
+          <DyvixLabel
+            theme="Ocean"
+            htmlFor="login-password"
+            ref={passwordLabel}
+          >
             {loginSettings[1]['placeholder']}
           </DyvixLabel>
         </div>

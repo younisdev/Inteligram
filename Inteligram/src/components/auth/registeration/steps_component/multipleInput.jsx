@@ -141,7 +141,12 @@ const DOBMultiInput = ({ step, onValueChange }) => {
           }
           onChange={() => onChangeCallback()}
         ></input>
-        <DyvixLabel className='register-label' theme={"Ocean"} htmlFor="year-input" ref={DOBRef[2]['label']}>
+        <DyvixLabel
+          className="register-label"
+          theme={'Ocean'}
+          htmlFor="year-input"
+          ref={DOBRef[2]['label']}
+        >
           Year
         </DyvixLabel>
       </div>

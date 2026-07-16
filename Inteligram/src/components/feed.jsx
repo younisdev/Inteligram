@@ -19,7 +19,6 @@ function FeedPosts() {
   });
   const sockets = React.useRef([]);
 
-  //console.log(sockets);
   React.useEffect(() => {
     postRef.current = [];
     if (!logState) {
@@ -111,7 +110,6 @@ function FeedPosts() {
 
           socket.onmessage = async (event) => {
             const message = JSON.parse(event.data);
-            console.log('recieverd', message);
             const currentUserReaction = await getUserReaction(post['post_id']);
             setPosts((prev) =>
               prev.map((p) =>

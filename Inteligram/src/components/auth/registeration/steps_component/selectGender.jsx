@@ -67,7 +67,12 @@ const GenderInput = ({ REGISTER_STEPS, step, onValueChange }) => {
           OnChangeCallback();
         }}
       ></input>
-      <DyvixLabel className='register-label' theme={"Ocean"} htmlFor="gender-input" ref={genderLabelRef}>
+      <DyvixLabel
+        className="register-label"
+        theme={'Ocean'}
+        htmlFor="gender-input"
+        ref={genderLabelRef}
+      >
         {REGISTER_STEPS[step]['placeholder']}
       </DyvixLabel>
     </>

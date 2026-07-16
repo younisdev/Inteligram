@@ -5,8 +5,10 @@ import {
   DyvixLabel,
   DYVIX_GLOBAL_ANIMATION,
   DYVIX_GLOBAL_THEME,
-  DyvixButton
+  DyvixButton,
 } from 'dyvix-ui';
+import { createPortal } from 'react-dom';
+import CreatePost from './CreatePost';
 
 function NavBar() {
   const nav = React.useRef();
@@ -23,13 +25,20 @@ function NavBar() {
   const linkRef = isRegister ? RegisterLinkRef.current : LoginLinkRef.current;
   const underlineRef = isRegister ? registerUnderlineRef : loginUnderlineRef;
   const [showDropdown, setShowDropdown] = React.useState(false);
+  const [showAddPost, setAddPost] = React.useState(false);
   const DROPDOWNITEMS = [
-    {label: "Create a new post", func: () => {
-     console.log('hiii')
-    }},
-    {label: "example", func: () => {
-     console.log('example 1!')
-    }}
+    {
+      label: 'Create a new post',
+      func: () => {
+        setAddPost((prev) => !prev);
+      },
+    },
+    {
+      label: 'example',
+      func: () => {
+        console.log('example 1!');
+      },
+    },
   ];
 
   useGSAP(() => {
@@ -48,16 +57,17 @@ function NavBar() {
 
     let tl = gsap.timeline();
 
-    tl.fromTo(nav.current, 
-      {width: 0, opacity: 0},
+    tl.fromTo(
+      nav.current,
+      { width: 0, opacity: 0 },
       {
-      width: navWidth,
-      opacity: 1,
-      duration: 1.7,
-      ease: 'power2.out',
-      clearProps: 'width'
-    },
-  );
+        width: navWidth,
+        opacity: 1,
+        duration: 1.7,
+        ease: 'power2.out',
+        clearProps: 'width',
+      }
+    );
     tl.to(
       navSelector('.nav-link'),
       {
@@ -84,21 +94,33 @@ function NavBar() {
   }, []);
 
   return (
-    <div id='inteligram-nav'>
+    <div id="inteligram-nav">
       {isSignedIn && (
         <>
           <div id="nav-logo">
-            <img src='http://127.0.0.1:8000/attachments/logo.png'/>
+            <img src="http://127.0.0.1:8000/attachments/logo.png" />
           </div>
           <div id="pfp-setting-holder">
-            <img src='http://127.0.0.1:8000/attachments/user.png' onClick={() => setShowDropdown((prev) => !prev)}/>
+            <img
+              src="http://127.0.0.1:8000/attachments/user.png"
+              onClick={() => setShowDropdown((prev) => !prev)}
+            />
             {showDropdown && (
               <div id="pfp-dropdown">
                 {DROPDOWNITEMS.map((item, i) => (
-                  <DyvixButton className="pfp-dropdown-item" key={i} onClick={() => item.func()}>
+                  <DyvixButton
+                    className="pfp-dropdown-item"
+                    key={i}
+                    onClick={() => item.func()}
+                  >
                     {item.label}
                   </DyvixButton>
                 ))}
+                {showAddPost &&
+                  createPortal(
+                    <CreatePost setAddPost={setAddPost} />,
+                    document.querySelector('#root')
+                  )}
               </div>
             )}
           </div>

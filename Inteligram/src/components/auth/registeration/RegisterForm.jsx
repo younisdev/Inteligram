@@ -180,7 +180,7 @@ function Register() {
 
   return (
     <div className="auth-div" ref={registerDiv}>
-      <div className='register-feild'>
+      <div className="register-feild">
         {componentVisibility.input && (
           <CredentialsInput
             REGISTER_STEPS={REGISTER_STEPS}
@@ -198,17 +198,16 @@ function Register() {
             onValueChange={OnStepValueChange}
           />
         )}
-        </div>
-        {componentVisibility.termination && (
-          <Terminate username={UserInfo.username} passwd={UserInfo.password} />
-        )}
-        {authMsg.visibility && <AuthMessage value={authMsg} />}
-        {!componentVisibility.termination && (
-          <DyvixButton className="auth-btn" onClick={HandelRegisterBtn}>
-            Continue
-          </DyvixButton>
-        )}
-    
+      </div>
+      {componentVisibility.termination && (
+        <Terminate username={UserInfo.username} passwd={UserInfo.password} />
+      )}
+      {authMsg.visibility && <AuthMessage value={authMsg} />}
+      {!componentVisibility.termination && (
+        <DyvixButton className="auth-btn" onClick={HandelRegisterBtn}>
+          Continue
+        </DyvixButton>
+      )}
     </div>
   );
 }

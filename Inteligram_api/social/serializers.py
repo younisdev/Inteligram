@@ -88,10 +88,9 @@ class CreatePostSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Post
-        fields = ["user", "text", "attachment"]
+        fields = ["text", "attachment"]
 
     def validate(self, data):
-        print(data.get("attachment"), data.get("text"))
         if not data.get("attachment") and not data.get("text"):
             raise serializers.ValidationError("Please provide content")
         return data
