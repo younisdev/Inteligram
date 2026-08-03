@@ -1,4 +1,6 @@
 from rest_framework import viewsets, permissions, status
+from rest_framework.generics import get_object_or_404
+
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.mixins import (
     CreateModelMixin,
@@ -9,6 +11,7 @@ from rest_framework.mixins import (
 from .models import User, Post, Reaction, Follow, Comment
 from .serializers import (
     UserSerializer,
+    MinimalUserInfoSerializer,
     PostSerializer,
     ReactionsSerializer,
     PasswordResetSerializer,
@@ -32,7 +35,7 @@ from .helper import SOCIALMEDIAALGO
 
 # Create your views here.
 
-class UserViewSet(viewsets.GenericViewSet, DestroyModelMixin, RetrieveModelMixin):
+class UserViewSet(viewsets.GenericViewSet, DestroyModelMixin):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = [permissions.AllowAny]
@@ -73,6 +76,19 @@ class UserViewSet(viewsets.GenericViewSet, DestroyModelMixin, RetrieveModelMixin
         return Response(
             {"details": "Password reset was successful"}, status=status.HTTP_200_OK
         )
+
+    @action(detail=False, methods=["get"], serializer_class=MinimalUserInfoSerializer, url_path=r'get/(?P<username>[\w.@+-]+)', pagination_class=None)
+    def get_user_details(self, request, username=None):
+        user = get_object_or_404(User, username=username)
+        serializer = self.get_serializer(user)
+        
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    @action(detail=False, methods=["get"], serializer_class=MinimalUserInfoSerializer, url_path=r'get/current', pagination_class=None, permission_classes=[permissions.IsAuthenticated])
+    def current_user_details(self, request):
+        serializer = self.get_serializer(request.user)
+        
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     @action(detail=True, methods=["patch"], serializer_class=UserDetailsSerializer)
     def UpdateUserDetails(self, request, pk=None):
@@ -126,16 +142,15 @@ class UserViewSet(viewsets.GenericViewSet, DestroyModelMixin, RetrieveModelMixin
         return Response(serializer, status=status.HTTP_200_OK)
 
     @action(
-        detail=True,
+        detail=False,
         methods=["get"],
         serializer_class=FollowSerializer,
-        url_path="stats/follow",
+        url_path=r"stats/follow/(?P<username>[\w.@+-]+)",
     )
-    def follow_stats(self, request, pk=None):
-        user = self.get_object()
+    def follow_stats(self, request, username=None):
 
-        following_count = Follow.objects.filter(follower_user=user).count()
-        followed_count = Follow.objects.filter(followed_user=user).count()
+        following_count = Follow.objects.filter(follower_user__username=username).count()
+        followed_count = Follow.objects.filter(followed_user__username=username).count()
 
         return Response(
             {"following_count": following_count, "followed_count": followed_count},
@@ -211,8 +226,8 @@ class PostViewSet(viewsets.GenericViewSet, DestroyModelMixin):
 
         return Response(stats, status=status.HTTP_200_OK)
 
-    @action(detail=False, methods=['get'], serializer_class=PostSerializer, pagination_class = PageNumberPagination ,url_path="feed")
-    def Feed(self, request):
+    @action(detail=False, methods=['get'], serializer_class=PostSerializer, pagination_class = PageNumberPagination, url_path="feed")
+    def normal_post(self, request):
         user = request.user
         posts = SOCIALMEDIAALGO.feed_algorithim(self, user)
         
@@ -227,6 +242,22 @@ class PostViewSet(viewsets.GenericViewSet, DestroyModelMixin):
         serializer = PostSerializer(posts, many=True)
 
         return Response(serializer.data, status= status.HTTP_200_OK)
+    
+    @action(detail=False, methods=['get'], serializer_class=PostSerializer, pagination_class = PageNumberPagination, url_path=r"feed/(?P<username>[\w.@+-]+)")
+    def user_posts(self, request, username=None):
+        posts = Post.objects.filter(user__username=username).order_by('-posted_at')
+
+        paginator = self.paginator
+
+        page = paginator.paginate_queryset(posts, request)
+
+        if page is not None:
+            serializer = PostSerializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        serializer = PostSerializer(page, many=True)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
     
     @action(detail=True, methods=["get"], serializer_class=ReactionsSerializer)
     def get_user_reaction(self, request, pk=None):
@@ -294,7 +325,21 @@ class CommentViewSet(viewsets.GenericViewSet, DestroyModelMixin, CreateModelMixi
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
-    
+
+
+class FollowViewSet(viewsets.GenericViewSet, DestroyModelMixin):
+    permission_classes= [permissions.IsAuthenticated]
+    serializer_class = FollowSerializer
+    queryset = Follow.objects.all()
+
+    @action(detail=False, methods={"get"}, url_path=r"status/(?P<username>[^/.]+)", pagination_class=None)
+    def get_user_follow_status(self, request, username=None):
+        user = request.user
+        is_following = Follow.objects.filter(follower_user=user, followed_user__username=username).exists()
+
+        return Response({'is_following': is_following}, status=status.HTTP_200_OK)
+
+
 class TokenCheck(APIView):
     permission_classes = [permissions.IsAuthenticated]
 

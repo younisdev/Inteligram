@@ -26,7 +26,15 @@ function NavBar() {
   const underlineRef = isRegister ? registerUnderlineRef : loginUnderlineRef;
   const [showDropdown, setShowDropdown] = React.useState(false);
   const [showAddPost, setAddPost] = React.useState(false);
+  const [userDetails, setUserDetails] = React.useState(null);
+
   const DROPDOWNITEMS = [
+    {
+      label: 'Profile',
+      func: () => {
+        window.location.href = `/profile/${userDetails?.username}`;
+      },
+    },
     {
       label: 'Create a new post',
       func: () => {
@@ -34,12 +42,33 @@ function NavBar() {
       },
     },
     {
-      label: 'example',
+      label: 'Logout',
       func: () => {
-        console.log('example 1!');
+        window.location.href = `/logout`;
       },
     },
   ];
+
+  React.useEffect(() => {
+    async function get_details() {
+      const request = await fetch(
+        'http://127.0.0.1:8000/api/users/get/current/',
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('access')}`,
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      if (!request.ok) {
+        console.error(`HTTP Error: ${request.status}`);
+      }
+      const data = await request.json();
+      setUserDetails(data);
+    }
+    get_details();
+  }, []);
 
   useGSAP(() => {
     const navWidth = nav.current.offsetWidth;
@@ -102,7 +131,10 @@ function NavBar() {
           </div>
           <div id="pfp-setting-holder">
             <img
-              src="http://127.0.0.1:8000/attachments/user.png"
+              src={
+                userDetails?.profile_pic ||
+                `http://127.0.0.1:8000/attachments/user.png`
+              }
               onClick={() => setShowDropdown((prev) => !prev)}
             />
             {showDropdown && (
@@ -132,11 +164,8 @@ function NavBar() {
             <a href="/" className="nav-link">
               <span>Home</span>
             </a>
-            <a href="#" className="nav-link">
-              <span>Explore</span>
-            </a>
-            <a href="#" className="nav-link">
-              <span>Followings</span>
+            <a href={`/profile/${userDetails?.username}`} className="nav-link">
+              <span>Profile</span>
             </a>
           </>
         )}

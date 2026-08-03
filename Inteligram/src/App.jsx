@@ -4,18 +4,15 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import Logout from './pages/logout';
 import ModalPrev from './pages/ModalPrev';
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from 'react-router-dom';
+import Profiles from './pages/profile';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router';
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/profile/:username" element={<Profiles />} />
         <Route
           path="/account/login"
           element={<LoginPage />}

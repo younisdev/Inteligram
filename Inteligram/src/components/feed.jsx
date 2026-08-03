@@ -6,7 +6,7 @@ import { useGSAP } from '@gsap/react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { CircleLoader } from 'react-spinners';
 import { Post } from './post';
-function FeedPosts() {
+function FeedPosts({ fetchUrl, className }) {
   const postRef = React.useRef([]);
   const TempRef = React.useRef([]);
   const { logState } = React.useContext(loggedContext);
@@ -20,7 +20,10 @@ function FeedPosts() {
   const sockets = React.useRef([]);
 
   React.useEffect(() => {
+    setPosts([]);
+    setPage(1);
     postRef.current = [];
+    setHasmore(true);
     if (!logState) {
       return;
     }
@@ -30,7 +33,7 @@ function FeedPosts() {
     return () => {
       sockets.current.forEach((socket) => socket.close());
     };
-  }, [logState]);
+  }, [logState, fetchUrl]);
 
   async function getUserReaction(post_id) {
     return await fetch(
@@ -54,8 +57,11 @@ function FeedPosts() {
     });
   }
 
-  const fetchPosts = (cpage) =>
-    fetch(`http://127.0.0.1:8000/api/post/feed/?page=${cpage}`, {
+  const fetchPosts = (cpage) => {
+    const baseUrl = fetchUrl || 'http://127.0.0.1:8000/api/post/feed/';
+    const separator = baseUrl.includes('?') ? '&' : '?';
+
+    fetch(`${baseUrl}${separator}page=${cpage}`, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('access')}`,
@@ -130,7 +136,7 @@ function FeedPosts() {
         setHasmore(data['next'] !== null);
         setPage(cpage + 1);
       });
-
+  };
   function updateReaction(post_id) {
     fetch('http://127.0.0.1:8000/api/reaction/ChangeReaction/', {
       headers: {
@@ -149,6 +155,7 @@ function FeedPosts() {
       <div
         id="posts-container"
         style={commentState.visibility ? { display: 'none' } : {}}
+        className={className || ''}
       >
         <InfiniteScroll
           dataLength={posts.length}

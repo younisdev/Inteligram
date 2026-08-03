@@ -9,10 +9,9 @@ import {
 
 function CreatePost({ setAddPost }) {
   function addPost(text, attachment) {
-
     const formData = new FormData();
     formData.append('text', text);
-    if(attachment) {
+    if (attachment) {
       formData.append('attachment', attachment);
     }
 
@@ -21,7 +20,7 @@ function CreatePost({ setAddPost }) {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('access')}`,
       },
-      body: formData
+      body: formData,
     })
       .then((response) => {
         if (!response.ok) {
@@ -40,7 +39,7 @@ function CreatePost({ setAddPost }) {
         className="inteligram-modal"
         theme={DYVIX_GLOBAL_THEME.OCEAN}
         animation={DYVIX_GLOBAL_ANIMATION.DRIFT}
-        type={DYVIX_MODAL_TYPE.AUTH}
+        type={DYVIX_MODAL_TYPE.FORM}
         elements={[
           {
             type: DYVIX_MODAL_ELEMENT.TEXT,
@@ -50,14 +49,12 @@ function CreatePost({ setAddPost }) {
             id: 'post-input',
             validation:
               '$R^[\\s\\S]{3,500}$|must be between 3 and 500 characters',
-            match: null
           },
           {
             type: DYVIX_MODAL_ELEMENT.FILE,
             amount: 1,
             name: 'postMedia',
             placeholder: 'Attach post media',
-            match: null
           },
         ]}
         onSubmit={(data) => addPost(data['postText'], data['postMedia'])}

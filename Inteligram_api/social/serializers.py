@@ -14,6 +14,13 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ["id", "username", "profile_pic", "email", "DOB", "gender", "password"]
 
+
+class MinimalUserInfoSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
+        fields = ["username", "profile_pic"]
+
 class UserRegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, help_text="Password must be at least 9 characters, with uppercase, lowercase, digits, and special chars.")
 

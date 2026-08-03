@@ -524,14 +524,13 @@ body.noscroll {
   border-radius: 2rem;
 }
 .inteligram-modal {
-  transform: scale(1.5);
-}
-.inteligram-modal:hover {
-  transform: scale(1.56) !important;
+  width: 100%;
+  height: 100%;
 }
 .inteligram-modal #modal-header {
   color: #e2e8f0;
 }
+
 .modal-add-holder {
   position: fixed;
   top: 0;
@@ -541,6 +540,85 @@ body.noscroll {
   padding: 5rem 0;
   background-color: #94ace477;
   z-index: 200000;
+}
+/* Profile css */
+.profile-container {
+  margin-top: 3rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.profile-details {
+  margin: 0 auto;
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  gap: 20px;
+  padding-bottom: 1.5rem;
+}
+.profile-details::after {
+  content: '';
+  background: linear-gradient(
+    274deg,
+    rgba(42, 191, 250, 1) 0%,
+    rgba(186, 200, 255, 1) 76%
+  );
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%);
+  width: 100%;
+  height: 5px;
+  border-radius: 50rem;
+  transition:
+    width 0.5s ease-in-out,
+    transform 0.5s ease-in-out;
+}
+.profile-details:hover::after {
+  width: 45%;
+}
+.profile-pfp {
+  vertical-align: middle;
+  object-fit: cover;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 3px #111827 solid;
+}
+.profile-username {
+  font-size: 2rem;
+  font-family: 'geist', sans-serif;
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+  word-break: break-word;
+  color: #ffffff;
+}
+.stats-details {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+.stat-item {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+}
+.stat-number {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #f9fafb;
+}
+.stat-label {
+  font-size: 1.275rem;
+  font-weight: 700;
+  color: #9ca3af;
+}
+.follow-btn {
+  width: 150px;
 }
 @media only screen and (max-width: 600px) {
   /*
