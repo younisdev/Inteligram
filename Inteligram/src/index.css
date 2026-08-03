@@ -394,13 +394,18 @@ body.noscroll {
 .user-pfp:hover {
   cursor: pointer;
 }
-.post-info {
+.post-info,
+.post-info:visited,
+.post-info:hover
+ {
   display: flex;
   align-items: center;
   gap: 0.5rem;
   margin-top: 20px;
   margin-left: 20px;
   max-width: 100%;
+  text-decoration: none;
+  color: white;
 }
 .post-username {
   vertical-align: text-top;

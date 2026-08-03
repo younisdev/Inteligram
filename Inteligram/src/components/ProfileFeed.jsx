@@ -78,7 +78,35 @@ function ProfileFeed({ user }) {
 
 
   async function ToggleFollowRequest() {
-    
+    try {
+      const response = await fetch(`http://127.0.0.1:8000/api/follow/toggle/${user}/`, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('access')}`,
+              'Content-Type': 'application/json',
+            },
+            method: 'POST'
+          });
+
+      if(response.ok) {
+        const data = await response.json();
+        const actionText = data.is_following ? 'Followed' : 'Unfollowed';
+        dyvixToast.success(`${user} ${actionText} Successfully`)
+        SetIsFollowed(data.is_following)
+        setUserDetails((prev) => ({
+          ...prev,
+          followed_count:  data.is_following ? prev.followed_count + 1: Math.max(0, prev.followed_count - 1)
+        }));
+        
+      }
+      else {
+        const errorData = await response.json();
+        dyvixToast.error(errorData.detail || 'Failed to update follow status.');
+      }
+    }
+    catch(error) {
+      dyvixToast.error('Network error. Please try again.');
+      console.error(error);
+    }
   }
 
   return (
@@ -111,7 +139,7 @@ function ProfileFeed({ user }) {
           </div>
         </div>
         {currentUserDetails?.username !== userDetails?.username &&
-          <DyvixButton theme="Ocean" className="follow-btn" onClick={}>
+          <DyvixButton theme="Ocean" className="follow-btn" onClick={async () => await ToggleFollowRequest()}>
             {isFollowed ? 'Unfollow' : 'Follow'}
           </DyvixButton>
         }

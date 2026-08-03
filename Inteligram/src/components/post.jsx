@@ -43,14 +43,14 @@ export function Post({ post, togglecomment }) {
   return (
     <div ref={postRef}>
       <div className="post">
-        <div className="post-info">
+        <a className="post-info" href={`/profile/${post['user'].username}`}>
           <img
             className="user-pfp"
             src={`http://127.0.0.1:8000${post['user'].profile_pic === null ? '/attachments/user.png' : post['user'].profile_pic}`}
             loading="lazy"
           ></img>
           <span className="post-username">{post['user'].username}</span>
-        </div>
+        </a>
         <div className="post-content">
           <p>{post['text']}</p>
           {post['attachment'] && (

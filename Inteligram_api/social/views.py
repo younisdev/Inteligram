@@ -326,7 +326,6 @@ class CommentViewSet(viewsets.GenericViewSet, DestroyModelMixin, CreateModelMixi
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
-
 class FollowViewSet(viewsets.GenericViewSet, DestroyModelMixin):
     permission_classes= [permissions.IsAuthenticated]
     serializer_class = FollowSerializer
@@ -339,7 +338,31 @@ class FollowViewSet(viewsets.GenericViewSet, DestroyModelMixin):
 
         return Response({'is_following': is_following}, status=status.HTTP_200_OK)
 
+    @action(detail=False, methods={"post"}, url_path=r"toggle/(?P<username>[^/.]+)", pagination_class=None, serializer_class=None)
+    def toggle_follow(self, request, username=None):
+        source_user = request.user
+        target_user = None
+        if source_user.username == username:
+            return Response({"details": "You can't follow yourself."}, status=status.HTTP_400_BAD_REQUEST)
+        
+        try:
+            target_user = User.objects.get(username=username)
+        except User.DoesNotExist:
+            return Response({"detail": "User not found."}, status=status.HTTP_404_NOT_FOUND)
 
+        follow_object = Follow.objects.filter(follower_user=source_user, followed_user=target_user)
+        was_following = follow_object.exists()
+
+        if was_following:
+            follow_object.delete()
+        else:
+            Follow.objects.create(follower_user=source_user, followed_user=target_user)
+
+        action_prefix = "UNF" if was_following else "F"
+        is_following_now = not was_following
+
+        return Response({"details": f"{action_prefix}ollowed {username}.", "is_following": is_following_now})
+    
 class TokenCheck(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
