@@ -120,12 +120,6 @@ function Register() {
       SetStep(step + 1);
     } else if (stepComponent === 'select') {
       SubmitUserData();
-      setComponent((prevData) => ({
-        ...prevData,
-        select: false,
-        termination: true,
-      }));
-      SetStep(step + 1);
     } else if (stepComponent == 'terminate') {
     }
     AnimateTransition();
@@ -172,6 +166,12 @@ function Register() {
     })
       .then((Response) => {
         if (Response.ok) {
+          setComponent((prevData) => ({
+            ...prevData,
+            select: false,
+            termination: true,
+          }));
+          SetStep(step + 1);
           return Response.json();
         }
       })

@@ -1,104 +1,87 @@
-import { ClipLoader, CircleLoader } from 'react-spinners';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { CircleLoader } from 'react-spinners';
 import { loadingMessages } from '../../../utils';
 
 const Terminate = ({ username, passwd }) => {
-  const [message, Setmessage] = React.useState({ message: '', dots: '   ' });
-  const [usedmessages, Setusedmessages] = React.useState([]);
-
-  // usedmessageRef fixes a syncing issue
-  const usedmessageRef = React.useRef([]);
-  let messageInterval = React.useRef(null);
-  let mainInterval = React.useRef(null);
-  console.log(usedmessages, message);
+  console.log(username, passwd);
+  const [error, setError] = useState(null);
+  const [messageIndex, setMessageIndex] = useState(0);
+  const [dots, setDots] = useState('');
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   useEffect(() => {
-    if (mainInterval.current) clearInterval(mainInterval.current);
+    const authenticate = async () => {
+      try {
+        const response = await fetch('http://127.0.0.1:8000/api/token/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            username: username,
+            password: passwd,
+          }),
+        });
 
-    updateMessage();
-    mainInterval.current = setInterval(updateMessage, 4000);
-    return () => {
-      clearInterval(mainInterval.current);
-      clearInterval(messageInterval.current);
-    };
-  }, []);
-
-  useEffect(() => {
-    console.log(username, passwd);
-    fetch('http://127.0.0.1:8000/api/token/', {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      method: 'POST',
-
-      body: JSON.stringify({
-        username: username,
-        password: passwd,
-      }),
-    })
-      .then((Response) => {
-        if (!Response.ok) {
-          return;
+        if (!response.ok) {
+          throw new Error('Authentication failed. Invalid credentials.');
         }
-        return Response.json();
-      })
-      .then((data) => {
-        let access = data['access'];
-        let refresh = data['refresh'];
 
-        localStorage.setItem('access', access);
-        localStorage.setItem('refresh', refresh);
+        const data = await response.json();
+        localStorage.setItem('access', data.access);
+        localStorage.setItem('refresh', data.refresh);
+        setIsAuthenticated(true);
+        setMessageIndex(loadingMessages.length - 1);
+        setTimeout(() => (window.location.href = '/'), 3000);
+      } catch (error) {
+        setError(error.message || 'An error occurred during authentication.');
+      }
+    };
 
-        location.href = '/';
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [usedmessages]);
+    authenticate();
+  }, [username, passwd]);
+  useEffect(() => {
+    if (error || !loadingMessages.length || isAuthenticated) return;
 
-  function updateMessage() {
-    if (usedmessages.length >= loadingMessages.length) {
-      Setusedmessages([]);
-      usedmessageRef.current = [];
-    }
-    if (messageInterval.current) clearInterval(messageInterval.current);
+    const messageInterval = setInterval(() => {
+      setMessageIndex((prev) => (prev + 1) % loadingMessages.length);
+    }, 4000);
+
+    return () => clearInterval(messageInterval);
+  }, [error, isAuthenticated]);
+  React.useEffect(() => {
+    if (error) return;
+
     let dotCount = 0;
-
-    let randIndex = Math.floor(Math.random() * loadingMessages.length);
-    let currentMessage = loadingMessages[randIndex];
-
-    while (usedmessageRef.current.includes(currentMessage)) {
-      randIndex = Math.floor(Math.random() * loadingMessages.length);
-      currentMessage = loadingMessages[randIndex];
-    }
-    Setmessage({
-      message: currentMessage,
-      dots: '',
-    });
-    Setusedmessages((prev) => {
-      const next = [...prev, currentMessage];
-      usedmessageRef.current = next;
-      return next;
-    });
-    messageInterval.current = setInterval(() => {
-      Setmessage({
-        message: currentMessage,
-        dots: '.'.repeat(dotCount),
-      });
-
+    const dotInterval = setInterval(() => {
       dotCount = (dotCount + 1) % 4;
-    }, 800);
+      setDots('.'.repeat(dotCount));
+    }, 500);
+
+    return () => clearInterval(dotInterval);
+  }, [error]);
+
+  if (error) {
+    return (
+      <div id="termination-div" className="error-state">
+        <p style={{ color: 'red' }}>{error}</p>
+      </div>
+    );
   }
+
   return (
-    <div id="termianation-div">
-      <span>{message.message}</span>
-      <span>{message.dots}</span>
+    <div id="termination-div">
+      <span>{loadingMessages[messageIndex]}</span>
+      <span
+        style={{ display: 'inline-block', width: '20px', textAlign: 'left' }}
+      >
+        {dots}
+      </span>
       <CircleLoader
         id="term-loader"
-        color={'black'}
+        color="black"
         loading={true}
         size={15}
         aria-label="Loading Spinner"
-        data-testid="loader"
       />
     </div>
   );

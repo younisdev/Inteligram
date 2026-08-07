@@ -89,9 +89,14 @@ const DOBMultiInput = ({ step, onValueChange }) => {
             })
           }
         ></input>
-        <label htmlFor="month-input" ref={DOBRef[0]['label']}>
+        <DyvixLabel
+          htmlFor="month-input"
+          ref={DOBRef[0]['label']}
+          className="register-label"
+          theme={'Ocean'}
+        >
           Month
-        </label>
+        </DyvixLabel>
       </div>
       <div className="bd-div">
         <input
@@ -116,9 +121,14 @@ const DOBMultiInput = ({ step, onValueChange }) => {
           }
           onChange={() => onChangeCallback()}
         ></input>
-        <label htmlFor="day-input" ref={DOBRef[1]['label']}>
+        <DyvixLabel
+          className="register-label"
+          theme={'Ocean'}
+          htmlFor="day-input"
+          ref={DOBRef[1]['label']}
+        >
           Day
-        </label>
+        </DyvixLabel>
       </div>
       <div className="bd-div">
         <input

@@ -47,6 +47,7 @@ export const loadingMessages = [
   'Running Inteligram.exe',
   'Almost there',
   'You’re in. Welcome aboard',
+  'Done!',
 ];
 export const RatePasswd = (passwd, detailed) => {
   let passwordScore = validator.isStrongPassword(passwd, passwordOptions);

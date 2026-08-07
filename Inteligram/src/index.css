@@ -396,8 +396,7 @@ body.noscroll {
 }
 .post-info,
 .post-info:visited,
-.post-info:hover
- {
+.post-info:hover {
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -511,8 +510,8 @@ body.noscroll {
 }
 .close {
   position: fixed;
-  top: 2rem;
-  left: 4rem;
+  top: 7rem;
+  left: 6rem;
   font-size: 2.2rem;
   color: #2e616a;
   transition:
