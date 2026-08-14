@@ -23,7 +23,7 @@ const GenderInput = ({ REGISTER_STEPS, step, onValueChange }) => {
     });
     gsap.set(genderLabelRef.current, {
       opacity: 0,
-      y: -10,
+      y: -30,
     });
   }, []);
 

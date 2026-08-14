@@ -245,11 +245,13 @@ body.noscroll {
   Register css
 */
 .register-feild {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 }
-.register-label {
+.register-feild label {
+  display: block;
   margin-left: 0.6rem;
 }
 

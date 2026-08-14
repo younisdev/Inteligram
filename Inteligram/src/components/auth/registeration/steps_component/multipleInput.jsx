@@ -35,7 +35,7 @@ const DOBMultiInput = ({ step, onValueChange }) => {
     DOBRef.forEach((section) => {
       gsap.set(section['label'].current, {
         opacity: 0,
-        y: -10,
+        y: -30,
       });
     });
   }, []);

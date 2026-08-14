@@ -12,7 +12,7 @@ const CredentialsInput = ({ REGISTER_STEPS, step, onValueChange }) => {
   React.useEffect(() => {
     gsap.set(credentialsLabelRef.current, {
       opacity: 0,
-      y: -10,
+      y: -30,
     });
   }, []);
 
@@ -56,6 +56,7 @@ const CredentialsInput = ({ REGISTER_STEPS, step, onValueChange }) => {
         type="text"
         placeholder={REGISTER_STEPS[step]['placeholder']}
         className="auth-input"
+        id='auth-input-id'
         ref={credentialsInputRef}
         onFocus={(e) =>
           AnimateInputLabel(e, true, step, null, {
@@ -74,7 +75,7 @@ const CredentialsInput = ({ REGISTER_STEPS, step, onValueChange }) => {
       <DyvixLabel
         className="register-label"
         theme={'Ocean'}
-        htmlFor="auth-input"
+        htmlFor="auth-input-id"
         ref={credentialsLabelRef}
       >
         {REGISTER_STEPS[step]['placeholder']}

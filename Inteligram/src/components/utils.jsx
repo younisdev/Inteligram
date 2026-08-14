@@ -165,11 +165,10 @@ export const AnimateInputLabel = (
   e,
   visible,
   step,
-  DOB_REF = '',
+  DOB_REF = [],
   { label, input }
 ) => {
-  if (!label.current || !input.current) return;
-
+  if (!label?.current || !input?.current) return;
   let placeholder, stepType, exactStep;
 
   if (step === null) {
@@ -185,9 +184,8 @@ export const AnimateInputLabel = (
 
   if (stepType === 'DOB') {
     let id = e.target.id.split('-')[0];
-    let current_field = DOB_REF.find(
-      (REF) => REF['name'].toLocaleLowerCase() === id
-    );
+    let current_field = Array.isArray(DOB_REF) ?
+      DOB_REF.find((REF) => REF?.name?.toLowerCase() === id) : null;
 
     if (current_field) {
       placeholder = current_field.name;
@@ -205,7 +203,7 @@ export const AnimateInputLabel = (
 
     tl.to(label.current, {
       opacity: 0,
-      y: -17,
+      y: -30,
       ease: 'power2.inOut',
     }).call(() => {
       input.current.placeholder = placeholder;
@@ -216,7 +214,7 @@ export const ClearStepInput = (labels) => {
   labels.current.forEach((label) => {
     gsap.to(label.current, {
       opacity: 0,
-      y: -17,
+      y: -30,
       ease: 'power2.inOut',
     });
   });

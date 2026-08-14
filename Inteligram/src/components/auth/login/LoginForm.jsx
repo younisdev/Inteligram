@@ -31,11 +31,11 @@ function Login() {
 
     gsap.set(usernameLabel.current, {
       opacity: 0,
-      y: -10,
+      y: -30,
     });
     gsap.set(passwordLabel.current, {
       opacity: 0,
-      y: -10,
+      y: -30,
     });
 
     let tl = gsap.timeline();
