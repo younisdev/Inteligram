@@ -1,7 +1,6 @@
 import {
-  Modal,
+  DyvixModal,
   DYVIX_GLOBAL_THEME,
-  DYVIX_MODAL_VALIDATION_PRESET,
   DYVIX_MODAL_TYPE,
   DYVIX_GLOBAL_ANIMATION,
   DYVIX_MODAL_ELEMENT,
@@ -34,7 +33,7 @@ function CreateComment({ post, setShowAddComment, fetchComments }) {
 
   return (
     <div className="modal-add-holder">
-      <Modal
+      <DyvixModal
         title="Add Comment"
         className="inteligram-modal"
         theme={DYVIX_GLOBAL_THEME.OCEAN}

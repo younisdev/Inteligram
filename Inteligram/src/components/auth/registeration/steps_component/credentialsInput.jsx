@@ -2,6 +2,7 @@ import React from 'react';
 import { RatePasswd, passwdColors, AnimateInputLabel } from '../../../utils';
 import gsap from 'gsap';
 import { DyvixLabel } from 'dyvix-ui';
+import { useGSAP } from '@gsap/react';
 
 const CredentialsInput = ({ REGISTER_STEPS, step, onValueChange }) => {
   const credentialsLabelRef = React.useRef();
@@ -9,12 +10,14 @@ const CredentialsInput = ({ REGISTER_STEPS, step, onValueChange }) => {
   const progress = React.useRef();
   const progressContainer = React.useRef();
 
-  React.useEffect(() => {
+  useGSAP(() => {
+    if(!credentialsLabelRef.current) return;
+    
     gsap.set(credentialsLabelRef.current, {
       opacity: 0,
       y: -30,
     });
-  }, []);
+  }, [credentialsLabelRef]);
 
   React.useEffect(() => {
     credentialsInputRef.current.value = '';
@@ -77,6 +80,7 @@ const CredentialsInput = ({ REGISTER_STEPS, step, onValueChange }) => {
         theme={'Ocean'}
         htmlFor="auth-input-id"
         ref={credentialsLabelRef}
+        animation={null}
       >
         {REGISTER_STEPS[step]['placeholder']}
       </DyvixLabel>

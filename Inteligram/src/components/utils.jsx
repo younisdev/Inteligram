@@ -168,6 +168,7 @@ export const AnimateInputLabel = (
   DOB_REF = [],
   { label, input }
 ) => {
+  console.log("hix")
   if (!label?.current || !input?.current) return;
   let placeholder, stepType, exactStep;
 

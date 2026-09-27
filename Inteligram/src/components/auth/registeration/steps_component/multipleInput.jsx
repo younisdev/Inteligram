@@ -90,6 +90,7 @@ const DOBMultiInput = ({ step, onValueChange }) => {
           }
         ></input>
         <DyvixLabel
+          animation={null}
           htmlFor="month-input"
           ref={DOBRef[0]['label']}
           className="register-label"
@@ -122,6 +123,7 @@ const DOBMultiInput = ({ step, onValueChange }) => {
           onChange={() => onChangeCallback()}
         ></input>
         <DyvixLabel
+          animation={null}
           className="register-label"
           theme={'Ocean'}
           htmlFor="day-input"
@@ -152,6 +154,7 @@ const DOBMultiInput = ({ step, onValueChange }) => {
           onChange={() => onChangeCallback()}
         ></input>
         <DyvixLabel
+          animation={null}
           className="register-label"
           theme={'Ocean'}
           htmlFor="year-input"

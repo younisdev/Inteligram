@@ -1,10 +1,10 @@
 import {
-  Modal,
   DYVIX_GLOBAL_THEME,
   DYVIX_GLOBAL_ANIMATION,
   DYVIX_MODAL_TYPE,
   DYVIX_MODAL_ELEMENT,
   dyvixToast,
+  DyvixModal,
 } from 'dyvix-ui';
 
 function CreatePost({ setAddPost }) {
@@ -34,7 +34,7 @@ function CreatePost({ setAddPost }) {
 
   return (
     <div className="modal-add-holder">
-      <Modal
+      <DyvixModal
         title="Transmit Post"
         className="inteligram-modal"
         theme={DYVIX_GLOBAL_THEME.OCEAN}

@@ -1,5 +1,5 @@
 import {
-  Modal,
+  DyvixModal,
   DyvixSelect,
   DYVIX_GLOBAL_THEME,
   DYVIX_MODAL_VALIDATION_PRESET,
@@ -18,7 +18,7 @@ function ModalPrev() {
     amount: 1,
   }));
   return (
-    <Modal
+    <DyvixModal
       title="Add Comment"
       //Id={`intel-comment-modal-${postId}`}
       className="inteligram-modal-comment"

@@ -68,6 +68,7 @@ const GenderInput = ({ REGISTER_STEPS, step, onValueChange }) => {
         }}
       ></input>
       <DyvixLabel
+        animation={null}
         className="register-label"
         theme={'Ocean'}
         htmlFor="gender-input"
